@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DriveCare - Premium bike and car service center">
+  <title>DriveCare | Bike & Car Service</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    :root {
+      --primary-accent: #ea580c;
+      --primary-accent-hover: #c2410c;
+    }
+
+    body {
+      background-color: #0b1120;
+      color: #f1f5f9;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .card-dark {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 1.25rem;
+      transition: all 0.25s ease-in-out;
+    }
+
+    .card-dark:hover {
+      border-color: var(--primary-accent);
+      transform: translateY(-2px);
+    }
+
+    /* Blinkit-Style 95vh Bottom Sheet */
+    .custom-sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 1050;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .custom-sheet-backdrop.active {
+      display: flex;
+    }
+
+    .custom-sheet-topbar {
+      height: 5vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 1.5rem;
+    }
+
+    .custom-bottom-sheet {
+      height: 95vh;
+      background-color: #0f172a;
+      border-top: 1px solid #334155;
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+      padding: 1.75rem;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .custom-sheet-backdrop.active .custom-bottom-sheet {
+      transform: translateY(0%);
+    }
+
+    /* Horizontal Price Card Scroller */
+    .horizontal-slider {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .horizontal-slider::-webkit-scrollbar {
+      height: 6px;
+    }
+    .horizontal-slider::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+
+    .price-card-item {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .price-card-item:hover {
+      border-color: var(--primary-accent);
+      transform: translateY(-4px);
+    }
+
+    .btn-accent {
+      background-color: var(--primary-accent);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+    }
+
+    .btn-accent:hover {
+      background-color: var(--primary-accent-hover);
+      color: #fff;
+    }
+
+    .form-control-dark {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      color: #fff;
+      border-radius: 0.75rem;
+    }
+
+    .form-control-dark:focus {
+      background-color: #1e293b;
+      border-color: var(--primary-accent);
+      color: #fff;
+      box-shadow: 0 0 0 0.25rem rgba(234, 88, 12, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top drive-navbar" id="mainNavbar">
+  <div class="container-fluid px-lg-5">
+    <a class="navbar-brand brand" href="#home">
+      <span class="brand-mark"><i class="bi bi-gear-wide-connected"></i></span>
+      <span>
+        <strong>Drive<span>Care</span></strong>
+        <small>Bike & Car Service</small>
+      </span>
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainMenu"
+            aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-1"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainMenu">
+      <ul class="navbar-nav mx-auto gap-lg-3">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#view-customer">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#offers">Offers</a></li>
+        <!-- <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li> -->
+      </ul>
+
+      <div class="d-flex gap-2">
+        <!-- Add the missing Customer View button -->
+        <button onclick="switchView('customer')" id="btn-view-cust" class="btn btn-sm btn-accent rounded-pill px-3">Customer View</button>
+        
+        <!-- <button onclick="switchView('admin')" id="btn-view-adm" class="btn btn-sm btn-outline-secondary text-light rounded-pill px-3">Admin / Staff</button> -->
+      </div>
+      
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO CAROUSEL ================= -->
+<header id="home" class="hero-section">
+  <div id="vehicleCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5500">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#vehicleCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+      <button type="button" data-bs-target="#vehicleCarousel" data-bs-slide-to="1"></button>
+    </div>
+
+    <div class="carousel-inner">
+
+      <!-- BIKE SLIDE -->
+      <div class="carousel-item active hero-slide hero-bike">
+        <div class="hero-overlay"></div>
+        <div class="container-fluid px-4 px-lg-5 h-100">
+          <div class="row align-items-center h-100">
+            <div class="col-lg-6 hero-content">
+              <span class="eyebrow"><i class="bi bi-bicycle"></i> TWO WHEELER CARE</span>
+              <h1>BIKE<br><span>SERVICING</span></h1>
+              <p>Keep Your Ride<br>Powerful & Safe</p>
+              <a href="#services" class="btn btn-danger hero-btn">
+                Explore Bike Services <i class="bi bi-arrow-right ms-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAR SLIDE -->
+      <div class="carousel-item hero-slide hero-car">
+        <div class="hero-overlay"></div>
+        <div class="container-fluid px-4 px-lg-5 h-100">
+          <div class="row align-items-center h-100">
+            <div class="col-lg-6 offset-lg-6 hero-content">
+              <span class="eyebrow"><i class="bi bi-car-front-fill"></i> FOUR WHEELER CARE</span>
+              <h1>CAR<br><span>SERVICING</span></h1>
+              <p>Drive Smooth,<br>Drive Safe</p>
+              <a href="#services" class="btn btn-danger hero-btn">
+                Explore Car Services <i class="bi bi-arrow-right ms-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="carousel-control-prev custom-carousel-control" type="button"
+            data-bs-target="#vehicleCarousel" data-bs-slide="prev">
+      <span class="round-arrow"><i class="bi bi-chevron-left"></i></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button class="carousel-control-next custom-carousel-control" type="button"
+            data-bs-target="#vehicleCarousel" data-bs-slide="next">
+      <span class="round-arrow"><i class="bi bi-chevron-right"></i></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= SERVICES ================= -->
+<section id="services" class="section-dark services-section">
+  <div class="container">
+    <div class="section-heading text-center">
+      <span>OUR SERVICES</span>
+      <h2>Complete Care For Your Vehicle</h2>
+      <p>Professional service, genuine parts and skilled technicians under one roof.</p>
+    </div>
+
+    <div class="row g-3 g-lg-4">
+      <div class="col-6 col-md-4 col-xl-2">
+        <article class="service-card">
+          <div class="service-icon"><i class="bi bi-tools"></i></div>
+          <h3>General Service</h3>
+          <p>Complete checkup and maintenance.</p>
+          <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=600&q=85" alt="Vehicle general service">
+        </article>
+      </div>
+
+      <div class="col-6 col-md-4 col-xl-2">
+        <article class="service-card">
+          <div class="service-icon"><i class="bi bi-gear"></i></div>
+          <h3>Engine Service</h3>
+          <p>Keep your engine clean and strong.</p>
+          <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&q=85" alt="Engine service">
+        </article>
+      </div>
+
+      <div class="col-6 col-md-4 col-xl-2">
+        <article class="service-card">
+          <div class="service-icon"><i class="bi bi-disc"></i></div>
+          <h3>Brake Service</h3>
+          <p>Safe braking and smooth control.</p>
+          <img src="https://images.unsplash.com/photo-1600705722908-bab1e31c00e7?auto=format&fit=crop&w=600&q=85" alt="Brake service">
+        </article>
+      </div>
+
+      <div class="col-6 col-md-4 col-xl-2">
+        <article class="service-card">
+          <div class="service-icon"><i class="bi bi-circle"></i></div>
+          <h3>Tyre Service</h3>
+          <p>Tyre check, balancing and alignment.</p>
+          <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=600&q=85" alt="Tyre service">
+        </article>
+      </div>
+
+      <div class="col-6 col-md-4 col-xl-2">
+        <article class="service-card">
+          <div class="service-icon"><i class="bi bi-battery-charging"></i></div>
+          <h3>Battery Service</h3>
+          <p>Check battery health and performance.</p>
+          <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=600&q=85" alt="Battery service">
+        </article>
+      </div>
+
+      <div class="col-6 col-md-4 col-xl-2">
+        <article class="service-card">
+          <div class="service-icon"><i class="bi bi-stars"></i></div>
+          <h3>Detailing</h3>
+          <p>Interior and exterior cleaning.</p>
+          <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=600&q=85" alt="Vehicle detailing">
+        </article>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="#packages" class="btn btn-outline-danger rounded-pill px-5 py-3">
+        View All Services <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY CHOOSE US ================= -->
+<section id="about" class="why-section">
+  <div class="container">
+    <div class="why-panel">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-3">
+          <span class="red-label">WHY CHOOSE US</span>
+          <h2>We Ensure Your Vehicle Performs At Its Best</h2>
+          <p>At DriveCare, advanced technology meets expert hands to give your vehicle the care it deserves.</p>
+          <a href="#contact" class="btn btn-danger">Learn More <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+
+        <div class="col-lg-9">
+          <div class="row g-0 benefits-grid">
+            <div class="col-6 col-xl-3 benefit">
+              <i class="bi bi-shield-check"></i>
+              <h3>Experienced<br>Technicians</h3>
+              <p>Skilled & certified professionals.</p>
+            </div>
+            <div class="col-6 col-xl-3 benefit">
+              <i class="bi bi-gear-wide-connected"></i>
+              <h3>Advanced<br>Equipment</h3>
+              <p>Modern tools for accurate service.</p>
+            </div>
+            <div class="col-6 col-xl-3 benefit">
+              <i class="bi bi-award"></i>
+              <h3>Quality<br>Assurance</h3>
+              <p>Genuine parts and reliable service.</p>
+            </div>
+            <div class="col-6 col-xl-3 benefit">
+              <i class="bi bi-clock-history"></i>
+              <h3>On-Time<br>Delivery</h3>
+              <p>We value your time and trust.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OFFER ================= -->
+<section id="offers" class="offer-section">
+  <div class="container">
+    <div class="offer-banner" id="booking">
+      <div class="offer-bg"></div>
+      <div class="offer-content">
+        <span>GET UPTO</span>
+        <strong>20% OFF</strong>
+        <h3>ON YOUR FIRST SERVICE</h3>
+        <p>Limited time offer. Book your slot now!</p>
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#bookingModal">
+          Book Now & Save <i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-bar">
+      <div class="stat">
+        <i class="bi bi-people"></i>
+        <div><strong class="counter" data-target="10000">0</strong><span>+</span><small>Happy Customers</small></div>
+      </div>
+      <div class="stat">
+        <i class="bi bi-person-badge"></i>
+        <div><strong class="counter" data-target="15">0</strong><span>+</span><small>Expert Technicians</small></div>
+      </div>
+      <div class="stat">
+        <i class="bi bi-box-seam"></i>
+        <div><strong class="counter" data-target="20">0</strong><span>+</span><small>Service Packages</small></div>
+      </div>
+      <div class="stat">
+        <i class="bi bi-hand-thumbs-up"></i>
+        <div><strong class="counter" data-target="100">0</strong><span>%</span><small>Satisfaction</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CUSTOMER PORTAL ================= -->
+  <div id="view-customer" class="container py-5">
+    <div class="text-center my-4">
+      <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 rounded-pill px-3 py-2 text-uppercase">Doorstep Pickup Service</span>
+      <h1 class="display-6 fw-bold mt-3 text-white">Professional Vehicle Maintenance</h1>
+      <p class="text-secondary small">Choose your vehicle category to view transparent package rates.</p>
+    </div>
+
+    <!-- Vehicle Selection (Bike / Car) -->
+    <div class="row g-4 justify-content-center mt-3">
+      <!-- Bike Card -->
+      <div class="col-12 col-md-5">
+        <div class="card card-dark p-4 h-100" onclick="openServiceSheet('bike')">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <span class="text-warning text-uppercase small fw-bold">Two Wheeler</span>
+              <h3 class="fw-bold text-white mb-0 mt-1">Bike Service</h3>
+            </div>
+            <span class="fs-2 text-warning"><i class="bi bi-bicycle"></i></span>
+          </div>
+          <p class="text-secondary small">Engine flush, synthetic lube, chain slack adjustment, and 30-point diagnostics.</p>
+          <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25 mt-auto">
+            <span class="text-secondary small">From <strong class="text-white">₹2,500</strong></span>
+            <button class="btn btn-sm btn-outline-warning rounded-pill px-3">Select <i class="bi bi-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Card -->
+      <div class="col-12 col-md-5">
+        <div class="card card-dark p-4 h-100" onclick="openServiceSheet('car')">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+              <span class="text-info text-uppercase small fw-bold">Four Wheeler</span>
+              <h3 class="fw-bold text-white mb-0 mt-1">Car Service</h3>
+            </div>
+            <span class="fs-2 text-info"><i class="bi bi-car-front-fill"></i></span>
+          </div>
+          <p class="text-secondary small">ECU scanning, oil filter swap, full underbody wash, brake pad replacement.</p>
+          <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25 mt-auto">
+            <span class="text-secondary small">From <strong class="text-white">₹3,500</strong></span>
+            <button class="btn btn-sm btn-outline-info rounded-pill px-3">Select <i class="bi bi-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 95% BLINKIT-STYLE MODAL SHEET ================= -->
+  <div id="service-sheet-backdrop" class="custom-sheet-backdrop">
+    <!-- Top 5% Height Close Action -->
+    <div class="custom-sheet-topbar">
+      <button onclick="closeServiceSheet()" class="btn btn-sm btn-dark border border-secondary text-light rounded-pill px-3 shadow">
+        Close <i class="bi bi-x-lg ms-1"></i>
+      </button>
+    </div>
+
+    <!-- 95% Height Slide-Up Bottom Sheet -->
+    <div class="custom-bottom-sheet d-flex flex-column justify-content-between">
+      <div>
+        <div class="d-flex justify-content-between align-items-center pb-3 border-bottom border-secondary border-opacity-25 mb-4">
+          <div>
+            <span id="sheet-category-title" class="text-uppercase small fw-bold text-warning">Bike Packages</span>
+            <h3 class="h4 fw-bold text-white mb-0">Select Service Level</h3>
+          </div>
+        </div>
+
+        <!-- 4 Horizontal Moving Price Cards -->
+        <div class="horizontal-slider">
+          <div class="price-card-item" onclick="selectPackage(2500, 'Basic Periodic Maintenance')">
+            <span class="badge bg-secondary text-light mb-2">Essential</span>
+            <h5 class="fw-bold text-white">General Tune</h5>
+            <h2 class="text-warning fw-bold my-2">₹2,500</h2>
+            <ul class="list-unstyled small text-secondary border-top border-secondary border-opacity-25 pt-2">
+              <li><i class="bi bi-check2 text-warning me-1"></i> Engine Oil Top-Up</li>
+              <li><i class="bi bi-check2 text-warning me-1"></i> Brake Adjustment</li>
+              <li><i class="bi bi-check2 text-warning me-1"></i> Pressure Wash</li>
+            </ul>
+          </div>
+
+          <div class="price-card-item" onclick="selectPackage(3500, 'Standard Maintenance Package')">
+            <span class="badge bg-warning text-dark mb-2">Popular</span>
+            <h5 class="fw-bold text-white">Standard Service</h5>
+            <h2 class="text-warning fw-bold my-2">₹3,500</h2>
+            <ul class="list-unstyled small text-secondary border-top border-secondary border-opacity-25 pt-2">
+              <li><i class="bi bi-check2 text-warning me-1"></i> Semi-Synthetic Oil</li>
+              <li><i class="bi bi-check2 text-warning me-1"></i> Brake Cleaning</li>
+              <li><i class="bi bi-check2 text-warning me-1"></i> Air Filter Clean</li>
+            </ul>
+          </div>
+
+          <div class="price-card-item" onclick="selectPackage(4500, 'Comprehensive Care Package')">
+            <span class="badge bg-info text-dark mb-2">Pro Care</span>
+            <h5 class="fw-bold text-white">Major Overhaul</h5>
+            <h2 class="text-warning fw-bold my-2">₹4,500</h2>
+            <ul class="list-unstyled small text-secondary border-top border-secondary border-opacity-25 pt-2">
+              <li><i class="bi bi-check2 text-warning me-1"></i> 100% Fully Synthetic Oil</li>
+              <li><i class="bi bi-check2 text-warning me-1"></i> Complete Brake Bleed</li>
+              <li><i class="bi bi-check2 text-warning me-1"></i> Full Diagnostics</li>
+            </ul>
+          </div>
+
+          <div class="price-card-item" onclick="selectPackage(5500, 'Executive Spa & Detailing')">
+            <span class="badge bg-danger text-light mb-2">Ultimate</span>
+            <h5 class="fw-bold text-white">Executive Detailing</h5>
+            <h2 class="text-warning fw-bold my-2">₹5,500</h2>
+            <ul class="list-unstyled small text-secondary border-top border-secondary border-opacity-25 pt-2">
+              <li><i class="bi bi-check2 text-warning me-1"></i> Everything in Pro Care</li>
+              <li><i class="bi bi-check2 text-warning me-1"></i> Ceramic Polish & Wax</li>
+              <li><i class="bi bi-check2 text-warning me-1"></i> Roadside Support (6 Mo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center text-secondary small py-2">
+        <i class="bi bi-arrow-left-right me-1"></i> Swipe horizontally across price cards. Tap any tier to continue.
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ACTION SELECTION MODAL (Call / WhatsApp / Book) ================= -->
+  <div class="modal fade" id="modalAction" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-slate-900 border border-secondary text-white rounded-4 p-3" style="background-color: #0f172a;">
+        <div class="modal-header border-0 pb-0">
+          <div>
+            <span id="action-price-tag" class="text-warning small fw-bold text-uppercase">₹3,500 Selected</span>
+            <h5 class="modal-title fw-bold text-white">Contact & Booking Options</h5>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body d-flex flex-column gap-3 pt-3">
+          <!-- Call Button -->
+          <a href="tel:+919876543210" class="btn btn-outline-light d-flex align-items-center justify-content-between p-3 rounded-3">
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-telephone-fill text-success fs-5"></i>
+              <div class="text-start">
+                <div class="fw-bold small">Call Service Station</div>
+                <div class="text-secondary" style="font-size: 0.75rem;">Direct phone inquiry</div>
+              </div>
+            </div>
+            <i class="bi bi-chevron-right text-secondary"></i>
+          </a>
+
+          <!-- WhatsApp Button -->
+          <a href="https://wa.me/919876543210?text=Hello%20ApexAuto%2C%20I%20want%20to%20book%20vehicle%20service." target="_blank" class="btn btn-outline-light d-flex align-items-center justify-content-between p-3 rounded-3">
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-whatsapp text-success fs-5"></i>
+              <div class="text-start">
+                <div class="fw-bold small">WhatsApp Chat</div>
+                <div class="text-secondary" style="font-size: 0.75rem;">Instant support via chat</div>
+              </div>
+            </div>
+            <i class="bi bi-chevron-right text-secondary"></i>
+          </a>
+
+          <!-- Book Advance Form Trigger -->
+          <button onclick="openLeadModal()" class="btn btn-accent d-flex align-items-center justify-content-between p-3 rounded-3">
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-calendar2-check-fill fs-5"></i>
+              <div class="text-start">
+                <div class="fw-bold small">Book Advance Pickup</div>
+                <div class="text-white-50" style="font-size: 0.75rem;">Schedule doorstep collection</div>
+              </div>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BOOK ADVANCE FORM MODAL ================= -->
+  <div class="modal fade" id="modalLeadForm" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-slate-900 border border-secondary text-white rounded-4 p-3" style="background-color: #0f172a;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold">Schedule Doorstep Pickup</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="leadForm" onsubmit="submitLeadForm(event)">
+            <div class="mb-3">
+              <label class="form-label small text-secondary mb-1">Customer Full Name *</label>
+              <input type="text" id="leadName" required class="form-control form-control-dark" placeholder="e.g. Anand Kumar">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small text-secondary mb-1">Phone Number *</label>
+              <input type="tel" id="leadPhone" required class="form-control form-control-dark" placeholder="10-digit mobile number">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small text-secondary mb-1">Vehicle Registration Number *</label>
+              <input type="text" id="leadVNum" required class="form-control form-control-dark text-uppercase" placeholder="e.g. TN-07-CD-5678">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small text-secondary mb-1">Preferred Pickup Date *</label>
+              <input type="date" id="leadDate" required class="form-control form-control-dark">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small text-secondary mb-1">Specific Complaints</label>
+              <textarea id="leadIssue" class="form-control form-control-dark" rows="2" placeholder="e.g. Engine oil leakage, hard clutch..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-accent w-100 py-2 rounded-3 mt-2">Confirm Lead Request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ADMIN / PICKUP STAFF DASHBOARD ================= -->
+  <div id="view-admin" class="container py-5 d-none">
+    <div class="d-flex justify-content-between align-items-center pb-4 border-bottom border-secondary border-opacity-25 mb-4">
+      <div>
+        <span class="badge bg-warning text-dark text-uppercase small">Staff Operations</span>
+        <h2 class="fw-bold text-white mt-1">Vehicle Job Card Control</h2>
+      </div>
+      <button onclick="openNewJobModal()" class="btn btn-accent rounded-pill px-3">
+        <i class="bi bi-plus-circle me-1"></i> New Job Card
+      </button>
+    </div>
+
+    <!-- Active Job Cards List -->
+    <div class="row g-4" id="jobCardsContainer">
+      <!-- Injected Dynamically -->
+    </div>
+  </div>
+
+  <!-- ================= NEW JOB CARD MODAL (7-10 FIELDS) ================= -->
+  <div class="modal fade" id="modalNewJob" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-slate-900 border border-secondary text-white rounded-4 p-3" style="background-color: #0f172a;">
+        <div class="modal-header border-0">
+          <div>
+            <h5 class="modal-title fw-bold">Create Vehicle Job Card</h5>
+            <div class="text-secondary small">Staff collection form. Dispatches pickup email upon submit.</div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="jobCardForm" onsubmit="submitNewJobCard(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small text-secondary mb-1">Customer Name *</label>
+                <input type="text" id="jobCName" required class="form-control form-control-dark">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small text-secondary mb-1">Customer Phone *</label>
+                <input type="tel" id="jobCPhone" required class="form-control form-control-dark">
+              </div>
+              <div class="col-12">
+                <label class="form-label small text-secondary mb-1">Customer Email (Mandatory for Updates) *</label>
+                <input type="email" id="jobCEmail" required class="form-control form-control-dark">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small text-secondary mb-1">Vehicle Type *</label>
+                <select id="jobVType" class="form-select form-control-dark">
+                  <option value="Bike">Bike</option>
+                  <option value="Car">Car</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small text-secondary mb-1">Vehicle Reg Number *</label>
+                <input type="text" id="jobVNum" required class="form-control form-control-dark text-uppercase">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small text-secondary mb-1">Vehicle Model</label>
+                <input type="text" id="jobVModel" placeholder="e.g. Yamaha R15" class="form-control form-control-dark">
+              </div>
+              <div class="col-12">
+                <label class="form-label small text-secondary mb-1">Reported Problems / Diagnosis *</label>
+                <textarea id="jobIssue" required rows="2" class="form-control form-control-dark"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-accent w-100 py-2 rounded-3 mt-4">Save Job Card & Trigger Pickup Email</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CLOSE JOB CARD / INVOICE BUILDER ================= -->
+  <div class="modal fade" id="modalCloseJob" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-slate-900 border border-secondary text-white rounded-4 p-3" style="background-color: #0f172a;">
+        <div class="modal-header border-0">
+          <div>
+            <h5 class="modal-title fw-bold">Close Job & Generate Bill</h5>
+            <div class="text-secondary small">Input replaced components and service labor.</div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="invJobId">
+          <div id="invoiceRows" class="d-flex flex-column gap-2 mb-3">
+            <div class="row g-2 align-items-center inv-item-row">
+              <div class="col-7">
+                <input type="text" class="form-control form-control-dark form-control-sm item-desc" placeholder="Part description" value="Full Synthetic Engine Oil">
+              </div>
+              <div class="col-4">
+                <input type="number" class="form-control form-control-dark form-control-sm item-price" placeholder="Cost" value="1800" oninput="calculateTotal()">
+              </div>
+              <div class="col-1 text-center">
+                <button onclick="removeInvoiceRow(this)" class="btn btn-sm text-danger p-0"><i class="bi bi-trash"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="addInvoiceRow()" class="btn btn-sm btn-outline-warning mb-3">
+            <i class="bi bi-plus"></i> Add Item
+          </button>
+
+          <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25">
+            <span class="fw-bold">Total Bill:</span>
+            <span id="invTotalDisplay" class="h5 fw-bold text-warning mb-0">₹1,800</span>
+          </div>
+
+          <button onclick="sendInvoiceToCustomer()" class="btn btn-success w-100 py-2 rounded-3 mt-4">
+            Send 3-Day Approval Link to Customer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STANDALONE CUSTOMER INVOICE APPROVAL VIEW ================= -->
+  <div id="view-customer-invoice" class="container py-5 d-none">
+    <div class="card card-dark p-4 max-w-xl mx-auto shadow-lg" id="printable-invoice" style="max-width: 650px;">
+      <div class="d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-25 pb-3">
+        <div>
+          <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25">3-Day Valid Review Link</span>
+          <h4 class="fw-bold text-white mt-1 mb-0">ApexAuto Service Invoice</h4>
+        </div>
+        <div class="text-end">
+          <span class="text-secondary small">Invoice ID</span>
+          <div id="custInvCode" class="font-monospace fw-bold text-white">#INV-9021</div>
+        </div>
+      </div>
+
+      <div class="row my-3 small text-secondary">
+        <div class="col-6">
+          <div>Customer: <strong id="custInvName" class="text-white">Rahul Sharma</strong></div>
+          <div id="custInvPhone">+91 98765 43210</div>
+        </div>
+        <div class="col-6 text-end">
+          <div>Vehicle: <strong id="custInvVNum" class="text-white">TN-07-CD-5678</strong></div>
+          <div id="custInvVModel">Yamaha R15</div>
+        </div>
+      </div>
+
+      <div class="border-top border-secondary border-opacity-25 pt-3">
+        <h6 class="text-uppercase small fw-bold text-secondary mb-3">Itemized Breakdown</h6>
+        <div id="custInvList" class="d-flex flex-column gap-2 small"></div>
+        <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25 mt-3">
+          <span class="fw-bold text-white">Grand Total</span>
+          <h3 id="custInvTotal" class="fw-bold text-success mb-0">₹1,800</h3>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mt-4">
+        <button onclick="confirmCustomerApproval()" id="btnCustApprove" class="btn btn-success flex-grow-1 py-2 fw-bold">
+          <i class="bi bi-check-circle me-1"></i> Approve & Complete (Done)
+        </button>
+        <button onclick="downloadPDFInvoice()" class="btn btn-outline-light py-2">
+          <i class="bi bi-download me-1"></i> PDF
+        </button>
+      </div>
+
+      <div id="approvedAlert" class="alert alert-success mt-3 text-center small mb-0 d-none">
+        <i class="bi bi-check-all me-1"></i> Job Card is permanently CLOSED. Thank you!
+      </div>
+    </div>
+  </div>
+
+<!-- ================= PACKAGES ================= -->
+<!-- <section id="packages" class="packages-section">
+  <div class="container">
+    <div class="section-heading text-center">
+      <span>POPULAR PACKAGES</span>
+      <h2>Choose Your Service Package</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="package-card">
+          <span class="package-tag">BIKE</span>
+          <h3>Basic Care</h3>
+          <div class="price">₹699</div>
+          <ul>
+            <li><i class="bi bi-check2"></i> Engine oil check</li>
+            <li><i class="bi bi-check2"></i> Brake inspection</li>
+            <li><i class="bi bi-check2"></i> Chain adjustment</li>
+            <li><i class="bi bi-check2"></i> 20-point inspection</li>
+          </ul>
+          <a href="#booking" class="btn btn-outline-danger w-100">Book Package</a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="package-card featured">
+          <span class="popular-badge">MOST POPULAR</span>
+          <span class="package-tag">CAR</span>
+          <h3>Premium Care</h3>
+          <div class="price">₹1,999</div>
+          <ul>
+            <li><i class="bi bi-check2"></i> Full inspection</li>
+            <li><i class="bi bi-check2"></i> Engine diagnostics</li>
+            <li><i class="bi bi-check2"></i> Brake & tyre check</li>
+            <li><i class="bi bi-check2"></i> Exterior wash</li>
+          </ul>
+          <a href="#booking" class="btn btn-danger w-100">Book Package</a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="package-card">
+          <span class="package-tag">CAR + BIKE</span>
+          <h3>Complete Care</h3>
+          <div class="price">₹2,999</div>
+          <ul>
+            <li><i class="bi bi-check2"></i> Full service</li>
+            <li><i class="bi bi-check2"></i> Interior detailing</li>
+            <li><i class="bi bi-check2"></i> AC performance check</li>
+            <li><i class="bi bi-check2"></i> Priority delivery</li>
+          </ul>
+          <a href="#booking" class="btn btn-outline-danger w-100">Book Package</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- ================= GALLERY ================= -->
+<!-- <section id="gallery" class="gallery-section">
+  <div class="container">
+    <div class="section-heading text-center">
+      <span>OUR WORKSHOP</span>
+      <h2>Built For Better Vehicle Care</h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-3"><img class="gallery-img" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=900&q=85" alt="Car workshop"></div>
+      <div class="col-md-6 col-lg-3"><img class="gallery-img" src="https://images.unsplash.com/photo-1558980664-10ea14e7b0c4?auto=format&fit=crop&w=900&q=85" alt="Bike service"></div>
+      <div class="col-md-6 col-lg-3"><img class="gallery-img" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=85" alt="Car"></div>
+      <div class="col-md-6 col-lg-3"><img class="gallery-img" src="https://images.unsplash.com/photo-1597007066704-67bf2068d5b2?auto=format&fit=crop&w=900&q=85" alt="Motorcycle"></div>
+    </div>
+  </div>
+</section> -->
+
+<!-- ================= CONTACT ================= -->
+<!-- <section id="contact" class="contact-section">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5">
+        <span class="red-label">GET IN TOUCH</span>
+        <h2>Need Your Vehicle Serviced?</h2>
+        <p>Tell us what your vehicle needs and our team will contact you shortly.</p>
+        <div class="contact-item"><i class="bi bi-telephone"></i><div><small>Call Us</small><strong>+91 98765 43210</strong></div></div>
+        <div class="contact-item"><i class="bi bi-envelope"></i><div><small>Email</small><strong>service@drivecare.in</strong></div></div>
+        <div class="contact-item"><i class="bi bi-geo-alt"></i><div><small>Workshop</small><strong>Trichy, Tamil Nadu</strong></div></div>
+      </div>
+      <div class="col-lg-7">
+        <form class="contact-form" id="contactForm">
+          <div class="row g-3">
+            <div class="col-md-6"><input type="text" class="form-control" placeholder="Your Name" required></div>
+            <div class="col-md-6"><input type="tel" class="form-control" placeholder="Phone Number" required></div>
+            <div class="col-md-6">
+              <select class="form-select" required>
+                <option value="">Vehicle Type</option>
+                <option>Bike</option>
+                <option>Car</option>
+              </select>
+            </div>
+            <div class="col-md-6"><input type="text" class="form-control" placeholder="Vehicle Model"></div>
+            <div class="col-12"><textarea class="form-control" rows="4" placeholder="Tell us about the service you need"></textarea></div>
+            <div class="col-12"><button class="btn btn-danger px-4 py-3" type="submit">Request Service <i class="bi bi-arrow-right ms-2"></i></button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <a class="brand footer-brand" href="#home">
+          <span class="brand-mark"><i class="bi bi-gear-wide-connected"></i></span>
+          <span><strong>Drive<span>Care</span></strong><small>Bike & Car Service</small></span>
+        </a>
+        <p class="mt-3">Professional bike and car servicing with transparent pricing and quality workmanship.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Quick Links</h5>
+        <a href="#about">About</a><a href="#services">Services</a><a href="#packages">Packages</a><a href="#offers">Offers</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Services</h5>
+        <a href="#services">General Service</a><a href="#services">Engine Service</a><a href="#services">Brake Service</a><a href="#services">Detailing</a>
+      </div>
+      <div class="col-lg-3">
+        <h5>Follow Us</h5>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="copyright">© <span id="year"></span> DriveCare. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<!-- ================= BOOKING MODAL ================= -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content booking-modal">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">Book a Service</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="bookingForm">
+          <input class="form-control mb-3" type="text" placeholder="Full Name" required>
+          <input class="form-control mb-3" type="tel" placeholder="Phone Number" required>
+          <select class="form-select mb-3" required>
+            <option value="">Choose Vehicle</option>
+            <option>Bike</option>
+            <option>Car</option>
+          </select>
+          <input class="form-control mb-3" type="date" required>
+          <select class="form-select mb-3" required>
+            <option value="">Choose Service</option>
+            <option>General Service</option>
+            <option>Engine Service</option>
+            <option>Brake Service</option>
+            <option>Tyre Service</option>
+            <option>Battery Service</option>
+            <option>Detailing</option>
+          </select>
+          <button class="btn btn-danger w-100 py-3" type="submit">Confirm Booking</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TOAST ================= -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="successToast" class="toast text-bg-dark border-danger" role="alert">
+    <div class="toast-header text-bg-dark">
+      <i class="bi bi-check-circle-fill text-danger me-2"></i>
+      <strong class="me-auto">DriveCare</strong>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body">Thank you! Your request has been received.</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+
+<script>
+    let currentSelectedCategory = 'bike';
+    let currentSelectedPrice = 2500;
+    let actionModalInstance, leadModalInstance, newJobModalInstance, closeJobModalInstance;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      actionModalInstance = new bootstrap.Modal(document.getElementById('modalAction'));
+      leadModalInstance = new bootstrap.Modal(document.getElementById('modalLeadForm'));
+      newJobModalInstance = new bootstrap.Modal(document.getElementById('modalNewJob'));
+      closeJobModalInstance = new bootstrap.Modal(document.getElementById('modalCloseJob'));
+    });
+
+    let jobsData = [
+      {
+        id: 1,
+        jobNumber: "JOB-2026-001",
+        name: "Vikram Menon",
+        email: "vikram@example.com",
+        phone: "9845012345",
+        vehicleType: "Bike",
+        vehicleNumber: "KA-04-E-8822",
+        model: "KTM Duke 390",
+        issue: "Periodic 15k KM service and brake bleeding",
+        status: "picked_up",
+        invoice: null
+      }
+    ];
+
+    function switchView(view) {
+      document.getElementById('view-customer').classList.toggle('d-none', view !== 'customer');
+      document.getElementById('view-admin').classList.toggle('d-none', view !== 'admin');
+      document.getElementById('view-customer-invoice').classList.add('d-none');
+
+      document.getElementById('btn-view-cust').className = view === 'customer' 
+        ? 'btn btn-sm btn-accent rounded-pill px-3' 
+        : 'btn btn-sm btn-outline-secondary text-light rounded-pill px-3';
+
+      document.getElementById('btn-view-adm').className = view === 'admin' 
+        ? 'btn btn-sm btn-accent rounded-pill px-3' 
+        : 'btn btn-sm btn-outline-secondary text-light rounded-pill px-3';
+
+      if (view === 'admin') renderJobCards();
+    }
+
+    // 95% Bottom Sheet Controls
+    function openServiceSheet(type) {
+      currentSelectedCategory = type;
+      document.getElementById('sheet-category-title').innerText = type.toUpperCase() + ' PACKAGES';
+      document.getElementById('service-sheet-backdrop').classList.add('active');
+    }
+
+    function closeServiceSheet() {
+      document.getElementById('service-sheet-backdrop').classList.remove('active');
+    }
+
+    function selectPackage(price, name) {
+      currentSelectedPrice = price;
+      document.getElementById('action-price-tag').innerText = `₹${price.toLocaleString()} Tier Selected`;
+      actionModalInstance.show();
+    }
+
+    function openLeadModal() {
+      actionModalInstance.hide();
+      leadModalInstance.show();
+    }
+
+    function submitLeadForm(e) {
+      e.preventDefault();
+      const lead = {
+        name: document.getElementById('leadName').value,
+        phone: document.getElementById('leadPhone').value,
+        vnum: document.getElementById('leadVNum').value,
+        date: document.getElementById('leadDate').value,
+        issue: document.getElementById('leadIssue').value,
+        type: currentSelectedCategory,
+        price: currentSelectedPrice
+      };
+
+      alert(`Lead submitted for ${lead.name}! Doorstep pickup booked for ${lead.date}.`);
+      leadModalInstance.hide();
+      closeServiceSheet();
+      document.getElementById('leadForm').reset();
+    }
+
+    // Admin Operations
+    function renderJobCards() {
+      const container = document.getElementById('jobCardsContainer');
+      container.innerHTML = '';
+
+      jobsData.forEach(job => {
+        const col = document.createElement('div');
+        col.className = 'col-md-6';
+        col.innerHTML = `
+          <div class="card card-dark p-3 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="font-monospace text-warning fw-bold small">${job.jobNumber}</span>
+              <span class="badge ${job.status === 'picked_up' ? 'bg-warning text-dark' : job.status === 'pending_approval' ? 'bg-info text-dark' : 'bg-success'}">${job.status.toUpperCase().replace('_', ' ')}</span>
+            </div>
+            <h5 class="fw-bold text-white mb-1">${job.name} <small class="text-secondary">(${job.phone})</small></h5>
+            <div class="text-secondary small font-monospace">${job.vehicleNumber} • ${job.model || job.vehicleType}</div>
+            <div class="p-2 rounded bg-dark border border-secondary border-opacity-25 small text-light mt-2">"${job.issue}"</div>
+
+            <div class="pt-3 border-top border-secondary border-opacity-25 mt-3 d-flex justify-content-between align-items-center">
+              ${job.status === 'picked_up' ? `
+                <button onclick="openCloseJobModal(${job.id})" class="btn btn-sm btn-accent rounded-pill px-3">Close Job & Generate Bill</button>
+              ` : job.status === 'pending_approval' ? `
+                <button onclick="openCustomerInvoiceView(${job.id})" class="btn btn-sm btn-info rounded-pill px-3">View 3-Day Approval Link</button>
+              ` : `
+                <span class="text-success small fw-bold"><i class="bi bi-check2-circle me-1"></i> Job Closed</span>
+                <button onclick="openCustomerInvoiceView(${job.id})" class="btn btn-sm btn-outline-light rounded-pill px-3">View Bill</button>
+              `}
+            </div>
+          </div>
+        `;
+        container.appendChild(col);
+      });
+    }
+
+    function openNewJobModal() {
+      newJobModalInstance.show();
+    }
+
+    function submitNewJobCard(e) {
+      e.preventDefault();
+      const newJob = {
+        id: Date.now(),
+        jobNumber: "JOB-" + Math.floor(1000 + Math.random() * 9000),
+        name: document.getElementById('jobCName').value,
+        phone: document.getElementById('jobCPhone').value,
+        email: document.getElementById('jobCEmail').value,
+        vehicleType: document.getElementById('jobVType').value,
+        vehicleNumber: document.getElementById('jobVNum').value,
+        model: document.getElementById('jobVModel').value,
+        issue: document.getElementById('jobIssue').value,
+        status: "picked_up",
+        invoice: null
+      };
+
+      jobsData.unshift(newJob);
+      alert(`Job Card ${newJob.jobNumber} registered! Automated pickup email sent to: ${newJob.email}`);
+      newJobModalInstance.hide();
+      document.getElementById('jobCardForm').reset();
+      renderJobCards();
+    }
+
+    // Invoice Builder
+    function openCloseJobModal(jobId) {
+      document.getElementById('invJobId').value = jobId;
+      calculateTotal();
+      closeJobModalInstance.show();
+    }
+
+    function addInvoiceRow() {
+      const container = document.getElementById('invoiceRows');
+      const div = document.createElement('div');
+      div.className = 'row g-2 align-items-center inv-item-row mt-2';
+      div.innerHTML = `
+        <div class="col-7"><input type="text" class="form-control form-control-dark form-control-sm item-desc" placeholder="Part description"></div>
+        <div class="col-4"><input type="number" class="form-control form-control-dark form-control-sm item-price" placeholder="Cost" oninput="calculateTotal()"></div>
+        <div class="col-1 text-center"><button onclick="removeInvoiceRow(this)" class="btn btn-sm text-danger p-0"><i class="bi bi-trash"></i></button></div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeInvoiceRow(btn) {
+      btn.closest('.inv-item-row').remove();
+      calculateTotal();
+    }
+
+    function calculateTotal() {
+      const prices = document.querySelectorAll('.item-price');
+      let sum = 0;
+      prices.forEach(p => sum += (parseFloat(p.value) || 0));
+      document.getElementById('invTotalDisplay').innerText = `₹${sum.toLocaleString()}`;
+      return sum;
+    }
+
+    function sendInvoiceToCustomer() {
+      const jobId = parseInt(document.getElementById('invJobId').value);
+      const job = jobsData.find(j => j.id === jobId);
+      if (!job) return;
+
+      const items = [];
+      document.querySelectorAll('.inv-item-row').forEach(row => {
+        const desc = row.querySelector('.item-desc').value;
+        const cost = parseFloat(row.querySelector('.item-price').value) || 0;
+        if (desc && cost) items.push({ desc, cost });
+      });
+
+      job.invoice = {
+        invCode: "INV-" + Math.floor(1000 + Math.random() * 9000),
+        items: items,
+        total: calculateTotal()
+      };
+      job.status = 'pending_approval';
+
+      alert(`Bill created! 3-day approval link sent to ${job.email}`);
+      closeJobModalInstance.hide();
+      renderJobCards();
+    }
+
+    // Customer Token Approval Simulator
+    function openCustomerInvoiceView(jobId) {
+      const job = jobsData.find(j => j.id === jobId);
+      if (!job || !job.invoice) return;
+
+      document.getElementById('custInvCode').innerText = `#${job.invoice.invCode}`;
+      document.getElementById('custInvName').innerText = job.name;
+      document.getElementById('custInvPhone').innerText = `+91 ${job.phone}`;
+      document.getElementById('custInvVNum').innerText = job.vehicleNumber;
+      document.getElementById('custInvVModel').innerText = job.model || job.vehicleType;
+      document.getElementById('custInvTotal').innerText = `₹${job.invoice.total.toLocaleString()}`;
+
+      const listContainer = document.getElementById('custInvList');
+      listContainer.innerHTML = '';
+      job.invoice.items.forEach(it => {
+        const row = document.createElement('div');
+        row.className = 'd-flex justify-content-between text-secondary';
+        row.innerHTML = `<span>${it.desc}</span><span class="text-white font-monospace">₹${it.cost.toLocaleString()}</span>`;
+        listContainer.appendChild(row);
+      });
+
+      const approveBtn = document.getElementById('btnCustApprove');
+      const alertBox = document.getElementById('approvedAlert');
+
+      if (job.status === 'closed') {
+        approveBtn.classList.add('d-none');
+        alertBox.classList.remove('d-none');
+      } else {
+        approveBtn.classList.remove('d-none');
+        approveBtn.onclick = () => {
+          job.status = 'closed';
+          approveBtn.classList.add('d-none');
+          alertBox.classList.remove('d-none');
+          renderJobCards();
+        };
+        alertBox.classList.add('d-none');
+      }
+
+      document.getElementById('view-customer').classList.add('d-none');
+      document.getElementById('view-admin').classList.add('d-none');
+      document.getElementById('view-customer-invoice').classList.remove('d-none');
+    }
+
+    function downloadPDFInvoice() {
+      const el = document.getElementById('printable-invoice');
+      html2pdf().set({ margin: 0.5, filename: 'ApexAuto-Invoice.pdf', html2canvas: { scale: 2 } }).from(el).save();
+    }
+  </script>
+</body>
+</html>
