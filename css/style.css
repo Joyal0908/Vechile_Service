@@ -865,12 +865,17 @@ a { text-decoration: none; }
     top: 54%;
   }
 
-  .custom-carousel-control.carousel-control-prev {
+  /* .custom-carousel-control.carousel-control-prev {
     left: 28%;
   }
 
   .custom-carousel-control.carousel-control-next {
     right: 28%;
+  } */
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    display:none;
   }
 
   .services-section,
