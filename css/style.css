@@ -865,18 +865,20 @@ a { text-decoration: none; }
     top: 54%;
   }
 
-  /* .custom-carousel-control.carousel-control-prev {
-    left: 28%;
+  .custom-carousel-control.carousel-control-prev {
+    /* left: 28%; */
+    display: none;
   }
 
   .custom-carousel-control.carousel-control-next {
-    right: 28%;
-  } */
+    /* right: 28%; */
+    display: none;
+  }
 
-  .carousel-control-prev,
+  /* .carousel-control-prev,
   .carousel-control-next {
     display:none;
-  }
+  } */
 
   .services-section,
   .packages-section,
