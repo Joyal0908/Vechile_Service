@@ -243,6 +243,44 @@
         background: #f8f9fa;
         padding-left: 15px;
       }
+
+      /* 1. Define the floating animation */
+      @keyframes float-animation {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px); /* Moves up 12 pixels */
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      /* 2. Update your support-icon to include the animation */
+      .support-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--primary-accent);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: all 0.3s;
+        
+        /* Apply the continuous float */
+        animation: float-animation 3s ease-in-out infinite;
+      }
+
+      /* 3. Stop the float and apply your scale effect when the menu is open */
+      .floating-support:hover .support-icon {
+        animation: none; /* Stops the bouncing */
+        transform: scale(1.1); /* Keeps your original zoom effect */
+      }
     </style>
   </head>
   <body>
@@ -399,7 +437,7 @@
     <div class="floating-button">
       <button
         onclick="openLeadModal()"
-        class="btn btn-accent rounded-pill px-4 py-2 shadow-lg"
+        class="btn btn-accent rounded px-4 py-2 shadow-lg"
       >
         <i class="bi bi-calendar2-check-fill me-2"></i> Book Pickup
       </button>
@@ -1428,7 +1466,7 @@
     <div class="floating-support">
       <div class="support-icon">
         <!-- Swapped to Bootstrap Icon -->
-        <i class="bi bi-headset"></i>
+        <i class="bi bi-stopwatch"></i>
       </div>
       <div class="support-options">
         <!-- Swapped to Bootstrap Icons -->
@@ -1441,7 +1479,7 @@
         <!-- <a href="mailto:info@bhargavaniveda.com"><i class="bi bi-envelope me-2"></i> Email Us</a> -->
         <!-- Adapted Book Advance Pickup Trigger -->
         <a href="javascript:void(0);" onclick="openLeadModal()">
-          <i class="bi bi-calendar2-check-fill me-2"></i> Book Pickup
+          <i class="bi bi-calendar2-check me-2"></i> Book Pickup
         </a>
       </div>
     </div>
