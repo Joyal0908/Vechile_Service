@@ -315,7 +315,7 @@
         <div class="collapse navbar-collapse" id="mainMenu">
           <ul class="navbar-nav mx-auto gap-lg-3">
             <li class="nav-item">
-              <a class="nav-link active" href="#home">Home</a>
+              <a class="nav-link active" href="#">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#about">About Us</a>
@@ -347,6 +347,7 @@
       </div>
     </nav>
 
+    <!-- DESKTOP HERO (Shows Images) -->
     <!--  HERO CAROUSEL  -->
     <header id="home" class="hero-section">
       <div
@@ -382,7 +383,7 @@
                   >
                   <h1>BIKE<br /><span>SERVICING</span></h1>
                   <p>Keep Your Ride<br />Powerful & Safe</p>
-                  <a href="#services" class="btn btn-danger hero-btn">
+                  <a href="#view-customer" class="btn btn-danger hero-btn">
                     Explore Bike Services <i class="bi bi-arrow-right ms-2"></i>
                   </a>
                 </div>
@@ -402,7 +403,7 @@
                   >
                   <h1>CAR<br /><span>SERVICING</span></h1>
                   <p>Drive Smooth,<br />Drive Safe</p>
-                  <a href="#services" class="btn btn-danger hero-btn">
+                  <a href="#view-customer" class="btn btn-danger hero-btn">
                     Explore Car Services <i class="bi bi-arrow-right ms-2"></i>
                   </a>
                 </div>
@@ -433,13 +434,137 @@
       </div>
     </header>
 
+
+    <!-- MOBILE HERO (Shows Video) -->
+    <header id="home-mobile" class="hero-small-device mt-5">
+      <!-- Video Background -->
+      <video autoplay loop muted playsinline class="mobile-hero-video">
+        <source src="HomePage_Video.mp4" type="video/mp4">
+      </video>
+      
+      <div class="hero-overlay"></div>
+      
+      <!-- Mobile Content -->
+      <div class="container-fluid px-4 h-100 mobile-content-wrapper">
+        <div class="row align-items-center h-100">
+          <div class="col-12 hero-content text-start">
+            <span class="eyebrow"><i class="bi bi-bicycle"></i> TWO WHEELER CARE</span>
+            <h1>BIKE<br><span>SERVICING</span></h1>
+            <p>Keep Your Ride<br>Powerful & Safe</p>
+            <a href="#view-customer" class="btn btn-danger hero-btn">
+              Explore Services <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MOBILE ONLY SERVICE PACKAGES (Hidden on medium/large screens) -->
+    <div class="container d-block d-md-none py-4 mt-0">
+      <h5 class="text-white mb-3 fw-semibold">Explore service packages</h5>
+      
+      <div class="row g-3">
+        <!-- Bike Card -->
+        <div class="col-6">
+          <div class="mobile-pkg-card" onclick="openServiceSheet('bike')">
+            <div class="mobile-pkg-title">Bikes <i class="bi bi-chevron-right"></i></div>
+            <!-- Using FontAwesome for the motorcycle silhouette -->
+            <img src="bike.svg" alt="Bike Icon" class="mobile-pkg-icon" />
+            <!-- <i class="fa-solid fa-motorcycle mobile-pkg-icon"></i> -->
+          </div>
+        </div>
+        
+        <!-- Car Card -->
+        <div class="col-6">
+          <div class="mobile-pkg-card" onclick="openServiceSheet('car')">
+            <div class="mobile-pkg-title">Cars <i class="bi bi-chevron-right"></i></div>
+            <!-- Using FontAwesome for the car silhouette -->
+            <img src="car.svg" alt="Car Icon" class="mobile-pkg-icon car" />
+            <!-- <i class="fa-solid fa-car-side mobile-pkg-icon"></i> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- MOBILE ONLY IMAGE CAROUSEL (Hidden on Desktop) -->
+    <div class="d-block d-md-none mt-0">
+      <div id="mobileImageCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">
+        
+        <div class="carousel-inner pb-5">
+
+          <div class="carousel-item active">
+            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <img src="image/OilChange.jpg" alt="Bike Service 1" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <img src="image/Chain.jpg" alt="Bike Service 2" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <img src="image/Underengine.jpg" alt="Bike Service 3" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <img src="image/bonet.jpg" alt="Car Service 1" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <img src="image/Fork.jpg" alt="Car Service 2" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <img src="image/Washing.jpg" alt="Car Service 3" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <img src="image/Disc.jpg" alt="Car Service 3" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <img src="image/Cleaning.jpg" alt="Car Service 3" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="carousel-indicators" style="bottom: -10px;">
+          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="3"></button>
+          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="4"></button>
+          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="5"></button>
+          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="6"></button>
+          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="7"></button>
+        </div>
+
+      </div>
+    </div>
+
+    
     <!-- Floating Button -->
     <div class="floating-button">
       <button
         onclick="openLeadModal()"
         class="btn btn-accent rounded px-4 py-2 shadow-lg"
       >
-        <i class="bi bi-calendar2-check-fill me-2"></i> Book Pickup
+        <i class="bi bi-calendar2-check me-2"></i> Book Pickup
       </button>
     </div>
 
@@ -486,7 +611,7 @@
               <h3>Brake Service</h3>
               <p>Safe braking and smooth control.</p>
               <img
-                src="https://images.unsplash.com/photo-160070572290-bab1e31c00e7?auto=format&fit=crop&w=600&q=85"
+                src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=85"
                 alt="Brake service"
               />
             </article>
@@ -494,7 +619,7 @@
 
           <div class="col-6 col-md-4 col-xl-2">
             <article class="service-card">
-              <div class="service-icon"><i class="bi bi-circle"></i></div>
+              <div class="service-icon"><i class="bi bi-life-preserver"></i></div>
               <h3>Tyre Service</h3>
               <p>Tyre check, balancing and alignment.</p>
               <img
@@ -533,7 +658,7 @@
 
         <div class="text-center mt-4">
           <a
-            href="#packages"
+            href="#view-customer"
             class="btn btn-outline-danger rounded-pill px-5 py-3"
           >
             View All Services <i class="bi bi-arrow-right ms-2"></i>
@@ -647,7 +772,7 @@
     </section>
 
     <!--  CUSTOMER PORTAL  -->
-    <div id="view-customer" class="container py-5">
+    <section id="view-customer" class="container py-5">
       <div class="text-center my-4">
         <span
           class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 rounded-pill px-3 py-2 text-uppercase"
@@ -731,7 +856,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!--  95% BLINKIT-STYLE MODAL SHEET  -->
     <div id="service-sheet-backdrop" class="custom-sheet-backdrop">
@@ -739,9 +864,8 @@
       <div class="custom-sheet-topbar">
         <button
           onclick="closeServiceSheet()"
-          class="btn btn-sm btn-dark border border-secondary text-light rounded-pill px-3 shadow"
-        >
-          Close <i class="bi bi-x-lg ms-1"></i>
+          class="btn btn-sm btn-dark border border-secondary text-light rounded-pill shadow"
+        ><i class="bi bi-x-lg ms-1"></i>
         </button>
       </div>
 
@@ -956,10 +1080,7 @@
     <!--  BOOK ADVANCE FORM MODAL  -->
     <div class="modal fade" id="modalLeadForm" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
-        <div
-          class="modal-content bg-slate-900 border border-secondary text-white rounded-4 p-3"
-          style="background-color: #0f172a"
-        >
+        <div class="modal-content bg-slate-900 border border-secondary text-white rounded-4 p-3" style="background-color: #0f172a">
           <div class="modal-header border-0">
             <h5 class="modal-title fw-bold">Schedule Doorstep Pickup</h5>
             <button
@@ -995,24 +1116,33 @@
                 />
               </div>
               <div class="mb-3">
-                <label class="form-label small text-secondary mb-1"
-                  >Vehicle Registration Number *</label
-                >
+                <label class="form-label small text-secondary mb-1">Vehicle Name *</label>
                 <input
                   type="text"
                   id="leadVNum"
                   required
                   class="form-control form-control-dark text-uppercase"
-                  placeholder="e.g. TN-07-CD-5678"
+                  placeholder="e.g. Yamaha R15"
                 />
               </div>
               <div class="mb-3">
                 <label class="form-label small text-secondary mb-1"
-                  >Preferred Pickup Date *</label
+                  >Preferred Appointment Date *</label
                 >
                 <input
                   type="date"
                   id="leadDate"
+                  required
+                  class="form-control form-control-dark"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label small text-secondary mb-1"
+                  >Preferred Appointment Time *</label
+                >
+                <input
+                  type="time"
+                  id="leadTime"
                   required
                   class="form-control form-control-dark"
                 />
@@ -1360,7 +1490,7 @@
           <div class="col-6 col-lg-2">
             <h5>Quick Links</h5>
             <a href="#about">About</a><a href="#services">Services</a
-            ><a href="#packages">Packages</a><a href="#offers">Offers</a>
+            ><a href="#view-customer">Packages</a><a href="#offers">Offers</a>
           </div>
           <div class="col-6 col-lg-2">
             <h5>Services</h5>
@@ -1581,19 +1711,24 @@
 
       function submitLeadForm(e) {
         e.preventDefault();
+        
+        // Capture all fields, including the missing time field
         const lead = {
           name: document.getElementById("leadName").value,
           phone: document.getElementById("leadPhone").value,
           vnum: document.getElementById("leadVNum").value,
           date: document.getElementById("leadDate").value,
+          time: document.getElementById("leadTime").value, // Added leadTime capture here
           issue: document.getElementById("leadIssue").value,
           type: currentSelectedCategory,
           price: currentSelectedPrice,
         };
 
+        // Update the alert to show the time as well
         alert(
-          `Lead submitted for ${lead.name}! Doorstep pickup booked for ${lead.date}.`,
+          `Lead submitted for ${lead.name}! Doorstep pickup booked for ${lead.date} at ${lead.time}.`
         );
+        
         leadModalInstance.hide();
         closeServiceSheet();
         document.getElementById("leadForm").reset();

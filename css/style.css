@@ -889,7 +889,12 @@ a {
 }
 
 @media (max-width: 575.98px) {
+  /* .hero-section{
+    display: none;
+  } */
+
   .container {
+    background: var(--dark);
     padding-left: 18px;
     padding-right: 18px;
   }
@@ -1031,3 +1036,223 @@ a {
     padding: 20px;
   }
 }
+
+
+/* -------------------------------------------
+   DEFAULT (DESKTOP/LARGE SCREENS)
+------------------------------------------- */
+/* Ensure the desktop hero is visible */
+.hero-section {
+  display: block; 
+}
+
+/* Hide the mobile video section on desktop */
+.hero-small-device {
+  display: none; 
+  position: relative;
+  height: 70vh; /* Makes it take up the full screen height */
+  overflow: hidden;
+}
+
+/* Style the mobile video to fill the screen */
+.mobile-hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video isn't stretched */
+  z-index: 0;
+}
+
+/* Keep content layered above the video */
+.mobile-content-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* -------------------------------------------
+   MOBILE DEVICES (SCREENS UNDER 768PX)
+------------------------------------------- */
+@media (max-width: 767px) {
+  
+  /* Hide the original desktop image slider completely */
+  .hero-section {
+    display: none !important; 
+  }
+  
+  /* Reveal the mobile video section */
+  .hero-small-device {
+    display: block !important;
+  }
+}
+
+
+/* MOBILE PACKAGE CARDS */
+.mobile-pkg-card {
+  background-color: #141518; /* Matches your dark card background */
+  border: 1px solid var(--red);
+  border-radius: 12px;
+  padding: 12px 14px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s;
+}
+
+.mobile-pkg-card img {
+  font-size: 60px;
+  height: 50px;
+}
+
+.mobile-pkg-card .car{
+  width: 120px;
+}
+
+.mobile-pkg-card:active {
+  transform: scale(0.96);
+  background-color: #1e293b;
+}
+
+.mobile-pkg-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.mobile-pkg-title i {
+  font-size: 11px;
+  margin-left: 2px;
+}
+
+.mobile-pkg-icon {
+  color: var(--primary-accent);
+  font-size: 42px; 
+  align-self: flex-start;
+  margin-bottom: 2px;
+}
+
+/* ============ MOBILE STACK CAROUSEL (Strictly Mobile Only) ============ */
+@media (max-width: 767.98px) {
+  
+  #mobileImageCarousel {
+    position: relative;
+    max-width: 100%;
+    margin: 20px auto;
+  }
+
+  #mobileImageCarousel .carousel-inner {
+    height: 320px;
+    overflow: visible; 
+  }
+
+  /* Force every slide to render for the stacked effect */
+  #mobileImageCarousel .carousel-item {
+    display: block !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px; 
+    aspect-ratio: 4/3;
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+    filter: blur(4px);
+    z-index: 1;
+    transition: transform .6s cubic-bezier(.22,.61,.36,1),
+                opacity .6s ease, filter .6s ease, box-shadow .6s ease;
+    pointer-events: none;
+  }
+
+  #mobileImageCarousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: block;
+  }
+
+  /* ACTIVE = center, large, sharp */
+  #mobileImageCarousel .carousel-item.active {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+    filter: blur(0);
+    z-index: 10;
+    pointer-events: auto;
+  }
+  #mobileImageCarousel .carousel-item.active img {
+    box-shadow: 0 15px 35px -5px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.15);
+  }
+
+  /* NEXT = the item right after .active in the DOM */
+  #mobileImageCarousel .carousel-item.active + .carousel-item {
+    transform: translate(calc(-50% + 120px), -50%) scale(0.82);
+    opacity: .5;
+    filter: blur(2px);
+    z-index: 5;
+    pointer-events: auto;
+  }
+
+  /* PREV = the item right before .active in the DOM */
+  #mobileImageCarousel .carousel-item:has(+ .carousel-item.active) {
+    transform: translate(calc(-50% - 120px), -50%) scale(0.82);
+    opacity: .5;
+    filter: blur(2px);
+    z-index: 5;
+    pointer-events: auto;
+  }
+
+  /* SEAMLESS WRAP: First active, last is prev */
+  #mobileImageCarousel .carousel-item:first-child.active ~ .carousel-item:last-child {
+    transform: translate(calc(-50% - 120px), -50%) scale(0.82);
+    opacity: .5;
+    filter: blur(2px);
+    z-index: 5;
+    pointer-events: auto;
+  }
+
+  /* SEAMLESS WRAP: Last active, first is next */
+  #mobileImageCarousel .carousel-item:first-child:has(~ .carousel-item.active:last-child) {
+    transform: translate(calc(-50% + 120px), -50%) scale(0.82);
+    opacity: .5;
+    filter: blur(2px);
+    z-index: 5;
+    pointer-events: auto;
+  }
+
+  /* INDICATORS (dots) */
+  #mobileImageCarousel .carousel-indicators {
+    position: static;
+    margin-top: 24px;
+  }
+  #mobileImageCarousel .carousel-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #334155;
+    border: none;
+    margin: 0 4px;
+    opacity: 1;
+    transition: all .3s ease;
+  }
+  #mobileImageCarousel .carousel-indicators .active {
+    background-color: var(--primary-accent);
+    transform: scale(1.3);
+  }
+}
+/* Mobile Services Carousel Indicators */
+/* #mobileServicesCarousel .carousel-indicators [data-bs-target] {
+  background-color: #334155; 
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 4px;
+}
+
+#mobileServicesCarousel .carousel-indicators .active {
+  background-color: var(--primary-accent); 
+} */
