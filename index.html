@@ -39,7 +39,7 @@
       :root {
         --primary-accent: #ea580c;
         --primary-accent-hover: #c2410c;
-        /* --red-dark: #ea580c; */
+        --red: #ff3b30;
       }
 
       body {
@@ -108,6 +108,55 @@
         transform: translateY(0%);
       }
 
+      /* ============ BOTTOM SHEET TOPBAR & TOGGLE ============ */
+.custom-sheet-topbar {
+  height: 6vh; /* Slightly taller to comfortably fit the buttons */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Puts toggle on left, close on right */
+  padding: 0 1.5rem;
+  margin-top: 10px; /* Gives a little breathing room from the top of screen */
+}
+
+/* The dark pill container */
+.sheet-toggle-group {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 50px;
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+}
+
+/* The individual buttons */
+.sheet-toggle-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8; /* Faded grey text for inactive */
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.sheet-toggle-btn:hover {
+  color: #ffffff;
+}
+
+/* Active State Colors */
+.sheet-toggle-btn.active-bike {
+  background-color: var(--primary-accent); /* Your orange accent */
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4);
+}
+
+.sheet-toggle-btn.active-car {
+  background-color: #0ea5e9; /* Bootstrap Info Blue */
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.4);
+}
+
       /* Horizontal Price Card Scroller */
       .horizontal-slider {
         display: flex;
@@ -174,27 +223,49 @@
       .floating-button {
         position: fixed;
         top: 90px;
-        right: 30px;
+        right: 10px;
         z-index: 99;
+      }
+
+      /* Attach the glowing pulse animation to the button itself */
+      .floating-button button {
+        animation: button-glow 2s infinite;
+        transition: transform 0.2s ease;
       }
 
       /* Optional: Add a subtle click effect */
       .floating-button button:active {
         transform: scale(0.95);
+        animation: none; /* Temporarily stops the glow when clicked */
+      }
+
+      /* The expanding glow animation */
+      @keyframes button-glow {
+        0% {
+          /* Starts with a solid shadow using your accent color (#ea580c) */
+          box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.7);
+        }
+        70% {
+          /* Expands outward and fades to transparent */
+          box-shadow: 0 0 0 12px rgba(234, 88, 12, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(234, 88, 12, 0);
+        }
       }
 
       /* Floating Support */
       .floating-support {
         position: fixed;
         bottom: 30px;
-        right: 30px;
+        right: 10px;
         z-index: 99;
       }
 
       .support-icon {
         width: 60px;
         height: 60px;
-        background: var(--primary-accent);
+        background: var(--red);
         border-radius: 50%;
         display: flex;
         justify-content: center;
@@ -236,7 +307,6 @@
         text-decoration: none;
         padding: 10px;
         border-radius: 5px;
-        transition: all 0.3s;
       }
 
       .support-options a:hover {
@@ -244,20 +314,7 @@
         padding-left: 15px;
       }
 
-      /* 1. Define the floating animation */
-      @keyframes float-animation {
-        0% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-12px); /* Moves up 12 pixels */
-        }
-        100% {
-          transform: translateY(0);
-        }
-      }
-
-      /* 2. Update your support-icon to include the animation */
+      /* 1. Update your support-icon to include the animation */
       .support-icon {
         width: 60px;
         height: 60px;
@@ -271,16 +328,17 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         cursor: pointer;
         transition: all 0.3s;
-        
+
         /* Apply the continuous float */
         animation: float-animation 3s ease-in-out infinite;
       }
 
-      /* 3. Stop the float and apply your scale effect when the menu is open */
+      /* 2. Stop the float and apply your scale effect when the menu is open */
       .floating-support:hover .support-icon {
         animation: none; /* Stops the bouncing */
         transform: scale(1.1); /* Keeps your original zoom effect */
       }
+      
     </style>
   </head>
   <body>
@@ -434,23 +492,22 @@
       </div>
     </header>
 
-
     <!-- MOBILE HERO (Shows Video) -->
     <header id="home-mobile" class="hero-small-device mt-5">
       <!-- Video Background -->
       <video autoplay loop muted playsinline class="mobile-hero-video">
-        <source src="HomePage_Video.mp4" type="video/mp4">
+        <source src="HomePage_Video.mp4" type="video/mp4" />
       </video>
-      
+
       <div class="hero-overlay"></div>
-      
+
       <!-- Mobile Content -->
       <div class="container-fluid px-4 h-100 mobile-content-wrapper">
         <div class="row align-items-center h-100">
           <div class="col-12 hero-content text-start">
-            <span class="eyebrow"><i class="bi bi-bicycle"></i> TWO WHEELER CARE</span>
-            <h1>BIKE<br><span>SERVICING</span></h1>
-            <p>Keep Your Ride<br>Powerful & Safe</p>
+            <!-- <span class="eyebrow"><i class="bi bi-bicycle"></i> TWO WHEELER CARE</span> -->
+            <h1>A Complete<br /><span>Auto Care</span></h1>
+            <p>Keep Your Ride<br />Powerful & Safe</p>
             <a href="#view-customer" class="btn btn-danger hero-btn">
               Explore Services <i class="bi bi-arrow-right ms-2"></i>
             </a>
@@ -461,23 +518,27 @@
 
     <!-- MOBILE ONLY SERVICE PACKAGES (Hidden on medium/large screens) -->
     <div class="container d-block d-md-none py-4 mt-0">
-      <h5 class="text-white mb-3 fw-semibold">Explore service packages</h5>
-      
+      <h5 class="text-white mb-3 fw-semibold">Pick Your Vechile Type</h5>
+
       <div class="row g-3">
         <!-- Bike Card -->
         <div class="col-6">
           <div class="mobile-pkg-card" onclick="openServiceSheet('bike')">
-            <div class="mobile-pkg-title">Bikes <i class="bi bi-chevron-right"></i></div>
+            <div class="mobile-pkg-title">
+              Bikes <i class="bi bi-chevron-right"></i>
+            </div>
             <!-- Using FontAwesome for the motorcycle silhouette -->
             <img src="bike.svg" alt="Bike Icon" class="mobile-pkg-icon" />
             <!-- <i class="fa-solid fa-motorcycle mobile-pkg-icon"></i> -->
           </div>
         </div>
-        
+
         <!-- Car Card -->
         <div class="col-6">
           <div class="mobile-pkg-card" onclick="openServiceSheet('car')">
-            <div class="mobile-pkg-title">Cars <i class="bi bi-chevron-right"></i></div>
+            <div class="mobile-pkg-title">
+              Cars <i class="bi bi-chevron-right"></i>
+            </div>
             <!-- Using FontAwesome for the car silhouette -->
             <img src="car.svg" alt="Car Icon" class="mobile-pkg-icon car" />
             <!-- <i class="fa-solid fa-car-side mobile-pkg-icon"></i> -->
@@ -485,10 +546,68 @@
         </div>
       </div>
     </div>
-    
+
+    <!-- MOBILE ONLY MARQUEE (Hidden on Desktop) -->
+    <div class="d-block d-md-none mt-0 overflow-hidden slider">
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <!-- SET 1 -->
+          <div class="marquee-item">
+            <img src="image/OilChange.jpg" alt="Bike Service 1" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Chain.jpg" alt="Bike Service 2" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Underengine.jpg" alt="Bike Service 3" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/bonet.jpg" alt="Car Service 1" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Fork.jpg" alt="Car Service 2" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Washing.jpg" alt="Car Service 3" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Disc.jpg" alt="Car Service 4" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Cleaning.jpg" alt="Car Service 5" />
+          </div>
+
+          <!-- SET 2 (Exact Duplicate for Seamless Looping) -->
+          <div class="marquee-item">
+            <img src="image/OilChange.jpg" alt="Bike Service 1" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Chain.jpg" alt="Bike Service 2" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Underengine.jpg" alt="Bike Service 3" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/bonet.jpg" alt="Car Service 1" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Fork.jpg" alt="Car Service 2" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Washing.jpg" alt="Car Service 3" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Disc.jpg" alt="Car Service 4" />
+          </div>
+          <div class="marquee-item">
+            <img src="image/Cleaning.jpg" alt="Car Service 5" />
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- MOBILE ONLY IMAGE CAROUSEL (Hidden on Desktop) -->
-    <div class="d-block d-md-none mt-0">
+    <!-- <div class="slider d-block d-md-none p-2 mt-0">
       <div id="mobileImageCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">
         
         <div class="carousel-inner pb-5">
@@ -555,21 +674,20 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
 
-    
     <!-- Floating Button -->
     <div class="floating-button">
       <button
         onclick="openLeadModal()"
-        class="btn btn-accent rounded px-4 py-2 shadow-lg"
+        class="btn btn-accent rounded px-2 py-2"
       >
-        <i class="bi bi-calendar2-check me-2"></i> Book Pickup
+        <i class="bi bi-calendar2-check me-2"></i> Book Now
       </button>
     </div>
 
     <!--  SERVICES  -->
-    <section id="services" class="section-dark services-section">
+    <section id="services" class="section-dark services-section mt-0 pt-2">
       <div class="container">
         <div class="section-heading text-center">
           <span>OUR SERVICES</span>
@@ -586,6 +704,7 @@
               <div class="service-icon"><i class="bi bi-tools"></i></div>
               <h3>General Service</h3>
               <p>Complete checkup and maintenance.</p>
+              <!-- <img src="image/OilChange.jpg" alt="General service" /> -->
               <img
                 src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=600&q=85"
                 alt="Vehicle general service"
@@ -610,36 +729,7 @@
               <div class="service-icon"><i class="bi bi-disc"></i></div>
               <h3>Brake Service</h3>
               <p>Safe braking and smooth control.</p>
-              <img
-                src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=85"
-                alt="Brake service"
-              />
-            </article>
-          </div>
-
-          <div class="col-6 col-md-4 col-xl-2">
-            <article class="service-card">
-              <div class="service-icon"><i class="bi bi-life-preserver"></i></div>
-              <h3>Tyre Service</h3>
-              <p>Tyre check, balancing and alignment.</p>
-              <img
-                src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=600&q=85"
-                alt="Tyre service"
-              />
-            </article>
-          </div>
-
-          <div class="col-6 col-md-4 col-xl-2">
-            <article class="service-card">
-              <div class="service-icon">
-                <i class="bi bi-battery-charging"></i>
-              </div>
-              <h3>Battery Service</h3>
-              <p>Check battery health and performance.</p>
-              <img
-                src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=600&q=85"
-                alt="Battery service"
-              />
+              <img src="image/Chain.jpg" alt="Brake service" />
             </article>
           </div>
 
@@ -648,10 +738,7 @@
               <div class="service-icon"><i class="bi bi-stars"></i></div>
               <h3>Detailing</h3>
               <p>Interior and exterior cleaning.</p>
-              <img
-                src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=600&q=85"
-                alt="Vehicle detailing"
-              />
+              <img src="image/Washing.jpg" alt="Vehicle detailing" />
             </article>
           </div>
         </div>
@@ -862,10 +949,20 @@
     <div id="service-sheet-backdrop" class="custom-sheet-backdrop">
       <!-- Top 5% Height Close Action -->
       <div class="custom-sheet-topbar">
+        <div class="sheet-toggle-group">
+          <button id="btn-tab-bike" class="sheet-toggle-btn active-bike" onclick="openServiceSheet('bike')">
+            <i class="bi bi-bicycle me-1"></i> Bike
+          </button>
+          <button id="btn-tab-car" class="sheet-toggle-btn" onclick="openServiceSheet('car')">
+            <i class="bi bi-car-front-fill me-1"></i> Car
+          </button>
+        </div>
+
         <button
           onclick="closeServiceSheet()"
           class="btn btn-sm btn-dark border border-secondary text-light rounded-pill shadow"
-        ><i class="bi bi-x-lg ms-1"></i>
+        >
+          <i class="bi bi-x-lg ms-1"></i>
         </button>
       </div>
 
@@ -1080,7 +1177,10 @@
     <!--  BOOK ADVANCE FORM MODAL  -->
     <div class="modal fade" id="modalLeadForm" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-slate-900 border border-secondary text-white rounded-4 p-3" style="background-color: #0f172a">
+        <div
+          class="modal-content bg-slate-900 border border-secondary text-white rounded-4 p-3"
+          style="background-color: #0f172a"
+        >
           <div class="modal-header border-0">
             <h5 class="modal-title fw-bold">Schedule Doorstep Pickup</h5>
             <button
@@ -1116,7 +1216,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label class="form-label small text-secondary mb-1">Vehicle Name *</label>
+                <label class="form-label small text-secondary mb-1"
+                  >Vehicle Name *</label
+                >
                 <input
                   type="text"
                   id="leadVNum"
@@ -1592,11 +1694,35 @@
       </div>
     </div>
 
+    <!-- Floating SOS Emergency Button (Matched to Support Style) -->
+    <div class="floating-sos d-block d-md-none">
+      <!-- Circular Icon (White background, Red Border) -->
+      <div class="sos-icon-circle">
+        <i class="fa-solid fa-bell fs-5"></i>
+        <span class="sos-text">SOS</span>
+      </div>
+
+      <!-- Popup Emergency Menu (Kept your exact original content) -->
+      <div class="sos-options">
+        <a href="tel:+919876543210">
+          <i class="bi bi-tools me-2 text-danger"></i> Need Roadside Assistance
+        </a>
+        <a href="tel:+919876543210">
+          <i class="bi bi-cone-striped me-2 text-danger"></i> Breakdown
+          Emergency
+        </a>
+        <a href="tel:+919876543210">
+          <i class="bi bi-lightning-charge-fill me-2 text-danger"></i> Instant
+          Solution
+        </a>
+      </div>
+    </div>
+
     <!-- Floating Support -->
     <div class="floating-support">
       <div class="support-icon">
         <!-- Swapped to Bootstrap Icon -->
-        <i class="bi bi-stopwatch"></i>
+        <i class="bi bi-telephone"></i>
       </div>
       <div class="support-options">
         <!-- Swapped to Bootstrap Icons -->
@@ -1711,7 +1837,7 @@
 
       function submitLeadForm(e) {
         e.preventDefault();
-        
+
         // Capture all fields, including the missing time field
         const lead = {
           name: document.getElementById("leadName").value,
@@ -1726,12 +1852,24 @@
 
         // Update the alert to show the time as well
         alert(
-          `Lead submitted for ${lead.name}! Doorstep pickup booked for ${lead.date} at ${lead.time}.`
+          `Lead submitted for ${lead.name}! Doorstep pickup booked for ${lead.date} at ${lead.time}.`,
         );
-        
+
         leadModalInstance.hide();
         closeServiceSheet();
         document.getElementById("leadForm").reset();
+      }
+
+      function openServiceSheet(type) {
+        currentSelectedCategory = type;
+        document.getElementById("sheet-category-title").innerText = type.toUpperCase() + " PACKAGES";
+        
+        // --- ADD THESE LINES TO CONTROL THE TOGGLE HIGHLIGHT ---
+        document.getElementById("btn-tab-bike").className = type === 'bike' ? "sheet-toggle-btn active-bike" : "sheet-toggle-btn";
+        document.getElementById("btn-tab-car").className = type === 'car' ? "sheet-toggle-btn active-car" : "sheet-toggle-btn";
+        // -------------------------------------------------------
+
+        document.getElementById("service-sheet-backdrop").classList.add("active");
       }
 
       // Admin Operations
