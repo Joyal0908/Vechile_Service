@@ -40,10 +40,11 @@
         --primary-accent: #ea580c;
         --primary-accent-hover: #c2410c;
         --red: #ff3b30;
+        --dark: #0d0e10;
       }
 
       body {
-        background-color: #0b1120;
+        background-color: var(--dark);
         color: #f1f5f9;
         font-family:
           system-ui,
@@ -94,7 +95,7 @@
 
       .custom-bottom-sheet {
         height: 95vh;
-        background-color: #0f172a;
+        background-color: var(--dark);
         border-top: 1px solid #334155;
         border-top-left-radius: 2rem;
         border-top-right-radius: 2rem;
@@ -109,53 +110,53 @@
       }
 
       /* ============ BOTTOM SHEET TOPBAR & TOGGLE ============ */
-.custom-sheet-topbar {
-  height: 6vh; /* Slightly taller to comfortably fit the buttons */
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Puts toggle on left, close on right */
-  padding: 0 1.5rem;
-  margin-top: 10px; /* Gives a little breathing room from the top of screen */
-}
+      .custom-sheet-topbar {
+        height: 6vh; /* Slightly taller to comfortably fit the buttons */
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Puts toggle on left, close on right */
+        padding: 0 1.5rem;
+        margin-top: 10px; /* Gives a little breathing room from the top of screen */
+      }
 
-/* The dark pill container */
-.sheet-toggle-group {
-  background-color: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 50px;
-  padding: 4px;
-  display: flex;
-  gap: 4px;
-}
+      /* The dark pill container */
+      .sheet-toggle-group {
+        background-color: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 50px;
+        padding: 4px;
+        display: flex;
+        gap: 4px;
+      }
 
-/* The individual buttons */
-.sheet-toggle-btn {
-  background: transparent;
-  border: none;
-  color: #94a3b8; /* Faded grey text for inactive */
-  padding: 6px 16px;
-  font-size: 13px;
-  font-weight: 700;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-}
+      /* The individual buttons */
+      .sheet-toggle-btn {
+        background: transparent;
+        border: none;
+        color: #94a3b8; /* Faded grey text for inactive */
+        padding: 6px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
 
-.sheet-toggle-btn:hover {
-  color: #ffffff;
-}
+      .sheet-toggle-btn:hover {
+        color: #ffffff;
+      }
 
-/* Active State Colors */
-.sheet-toggle-btn.active-bike {
-  background-color: var(--primary-accent); /* Your orange accent */
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4);
-}
+      /* Active State Colors */
+      .sheet-toggle-btn.active-bike {
+        background-color: var(--primary-accent); /* Your orange accent */
+        color: #ffffff;
+        box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4);
+      }
 
-.sheet-toggle-btn.active-car {
-  background-color: #0ea5e9; /* Bootstrap Info Blue */
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.4);
-}
+      .sheet-toggle-btn.active-car {
+        background-color: #0ea5e9; /* Bootstrap Info Blue */
+        color: #ffffff;
+        box-shadow: 0 2px 8px rgba(14, 165, 233, 0.4);
+      }
 
       /* Horizontal Price Card Scroller */
       .horizontal-slider {
@@ -257,7 +258,7 @@
       /* Floating Support */
       .floating-support {
         position: fixed;
-        bottom: 30px;
+        bottom: 80px;
         right: 10px;
         z-index: 99;
       }
@@ -338,7 +339,7 @@
         animation: none; /* Stops the bouncing */
         transform: scale(1.1); /* Keeps your original zoom effect */
       }
-      
+
     </style>
   </head>
   <body>
@@ -358,7 +359,7 @@
           </span>
         </a>
 
-        <button
+        <!-- <button
           class="navbar-toggler border-0 shadow-none"
           type="button"
           data-bs-toggle="collapse"
@@ -368,7 +369,15 @@
           aria-label="Toggle navigation"
         >
           <i class="bi bi-list fs-1"></i>
-        </button>
+        </button> -->
+
+        <button
+          class="btn text-light rounded-pill px-3 d-block d-lg-none"
+          data-bs-toggle="modal"
+          data-bs-target="#cityModal">
+          <span id="selectedCity">City</span>
+          <i class="bi bi-chevron-down ms-1"></i>
+      </button>
 
         <div class="collapse navbar-collapse" id="mainMenu">
           <ul class="navbar-nav mx-auto gap-lg-3">
@@ -404,6 +413,61 @@
         </div>
       </div>
     </nav>
+
+    <div class="modal fade" id="cityModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <h5 class="modal-title">Choose Your City</h5>
+                    <small class="text-muted">Selecting city help us provide you quick service</small>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <h6 class="fw-bold mb-3">
+                    🇮🇳 &nbsp;India
+                </h6>
+
+                <div class="city-grid">
+
+                    <div class="city-item" onclick="selectCity('Bangalore')">
+                        <!-- <div class="city-icon">🏛️</div> -->
+                        <span>Bangalore</span>
+                    </div>
+
+                    <div class="city-item" onclick="selectCity('Chennai')">
+                        <!-- <div class="city-icon">🏢</div> -->
+                        <span>Chennai</span>
+                    </div>
+
+                    <div class="city-item" onclick="selectCity('Hyderabad')">
+                        <!-- <div class="city-icon">🏰</div> -->
+                        <span>Hyderabad</span>
+                    </div>
+
+                    <div class="city-item" onclick="selectCity('Mumbai')">
+                        <!-- <div class="city-icon">🏛️</div> -->
+                        <span>Mumbai</span>
+                    </div>
+
+                    <div class="city-item" onclick="selectCity('Pune')">
+                        <!-- <div class="city-icon">🏢</div> -->
+                        <span>Pune</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- DESKTOP HERO (Shows Images) -->
     <!--  HERO CAROUSEL  -->
@@ -547,6 +611,28 @@
       </div>
     </div>
 
+    <!--  OFFER  -->
+    <section id="offers" class="offer-section m-0 py-4">
+      <div class="container">
+        <div class="offer-banner" id="booking">
+          <div class="offer-bg"></div>
+          <div class="offer-content">
+            <span>GET UPTO</span>
+            <strong>20% OFF</strong>
+            <h3>ON YOUR FIRST SERVICE</h3>
+            <p>Limited time offer. Book your slot now!</p>
+            <button
+              class="btn btn-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#bookingModal"
+            >
+              Book Now & Save <i class="bi bi-arrow-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- MOBILE ONLY MARQUEE (Hidden on Desktop) -->
     <div class="d-block d-md-none mt-0 overflow-hidden slider">
       <div class="marquee-container">
@@ -605,76 +691,6 @@
         </div>
       </div>
     </div>
-
-    <!-- MOBILE ONLY IMAGE CAROUSEL (Hidden on Desktop) -->
-    <!-- <div class="slider d-block d-md-none p-2 mt-0">
-      <div id="mobileImageCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true">
-        
-        <div class="carousel-inner pb-5">
-
-          <div class="carousel-item active">
-            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <img src="image/OilChange.jpg" alt="Bike Service 1" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <img src="image/Chain.jpg" alt="Bike Service 2" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <img src="image/Underengine.jpg" alt="Bike Service 3" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <img src="image/bonet.jpg" alt="Car Service 1" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <img src="image/Fork.jpg" alt="Car Service 2" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <img src="image/Washing.jpg" alt="Car Service 3" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <img src="image/Disc.jpg" alt="Car Service 3" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
-            </div>
-          </div>
-
-          <div class="carousel-item">
-            <div class="mx-auto" style="max-width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-              <img src="image/Cleaning.jpg" alt="Car Service 3" style="width: 100%; height: 300px; object-fit: cover; display: block;" />
-            </div>
-          </div>
-
-        </div>
-
-        <div class="carousel-indicators" style="bottom: -10px;">
-          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="0" class="active"></button>
-          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="1"></button>
-          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="2"></button>
-          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="3"></button>
-          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="4"></button>
-          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="5"></button>
-          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="6"></button>
-          <button type="button" data-bs-target="#mobileImageCarousel" data-bs-slide-to="7"></button>
-        </div>
-
-      </div>
-    </div> -->
 
     <!-- Floating Button -->
     <div class="floating-button">
@@ -795,28 +811,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!--  OFFER  -->
-    <section id="offers" class="offer-section">
-      <div class="container">
-        <div class="offer-banner" id="booking">
-          <div class="offer-bg"></div>
-          <div class="offer-content">
-            <span>GET UPTO</span>
-            <strong>20% OFF</strong>
-            <h3>ON YOUR FIRST SERVICE</h3>
-            <p>Limited time offer. Book your slot now!</p>
-            <button
-              class="btn btn-danger"
-              data-bs-toggle="modal"
-              data-bs-target="#bookingModal"
-            >
-              Book Now & Save <i class="bi bi-arrow-right ms-2"></i>
-            </button>
           </div>
         </div>
       </div>
@@ -1745,6 +1739,22 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+
+
+      function selectCity(city) {
+
+          // Change button text
+          document.getElementById("selectedCity").textContent = city;
+
+          // Close modal
+          const modalElement = document.getElementById("cityModal");
+          const modal = bootstrap.Modal.getInstance(modalElement);
+
+          if (modal) {
+              modal.hide();
+          }
+      }
+
       let currentSelectedCategory = "bike";
       let currentSelectedPrice = 2500;
       let actionModalInstance,
